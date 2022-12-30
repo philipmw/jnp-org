@@ -55,14 +55,28 @@ Pros:
 
 ## How to use this software
 
-To cluster students:
+### Initial setup and run unit tests
+
+    $ pip3 install .
+    $ python3 -m unittest discover -v -s src
+
+### To cluster students
 
 1. Create a CSV file in the format specified in the code.
 
 Then run:
 
-    $ pip3 install .
-    $ python3 student_km_clustering < ~/student_roster.csv
+    $ python3 -m student_km_clustering < ~/student_roster.csv
 
 If it succeeds, you'll get an output of your input file plus the cluster number for each student.
 
+### To assign instructors to groups
+
+1. Survey the instructors for their preferences.
+2. Update `instructor_assign/__main__.py` with the real preferences.
+
+Then run:
+
+      $ python3 -m instructor_assign
+
+If it succeeds, you'll get a dictionary mapping every instructor to their assigned group.

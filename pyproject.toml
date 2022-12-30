@@ -1,7 +1,10 @@
 [project]
 authors = [ { name = "Philip White" } ]
-dependencies = [ "k_means_constrained" ]
+dependencies = [
+    "k_means_constrained",
+    "scipy"
+]
 name = "jnp-org"
 license = { file = "LICENSE" }
-readme = { file = "README.md" }
+readme = "README.md"
 version = "2022.12.29"
