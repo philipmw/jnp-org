@@ -1,10 +1,13 @@
 from k_means_constrained import KMeansConstrained
+import logging
 
 DEFAULT_CLUSTER_SETTINGS = {
-    'n': 18,
+    'n': 20,
     'size_min': 5,
-    'size_max': 11,
+    'size_max': 9,
 }
+
+L = logging.getLogger(__name__)
 
 
 def student_attributes_to_feature_array(attr_dict):
@@ -19,6 +22,12 @@ def student_attributes_to_feature_array(attr_dict):
 def assign_clusters(students, cluster_settings=None):
     if cluster_settings is None:
         cluster_settings = DEFAULT_CLUSTER_SETTINGS
+
+    L.info("For %d students, creating %d clusters sized %d--%d" % (
+        len(students),
+        cluster_settings['n'],
+        cluster_settings['size_min'],
+        cluster_settings['size_max']))
 
     # feature array
     farray = list(map(student_attributes_to_feature_array, students.values()))

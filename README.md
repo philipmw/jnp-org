@@ -1,6 +1,12 @@
 # Organizing JNP #
 
-## what we want
+## intended audience
+
+Computer-savvy JNP organizers.
+This software is not intended for the public (though it is open source for anyone interested).
+It has only a command-line interface; no graphics.
+
+## project goals
 
 1. Records about each student that allow us to determine which ski group is most appropriate for them.
 2. A system to assign students to the optimal ski group. This needs to take into account:
@@ -55,20 +61,29 @@ Pros:
 
 ## How to use this software
 
+These instructions were tested on macOS 13. I expect it would work on Linux and Windows just as well.
+
 ### Initial setup and run unit tests
+
+1. Install Python 3.
+
+Then go into this repository's directory, and:
 
     $ pip3 install .
     $ python3 -m unittest discover -v -s src
 
+Unit tests should run and pass.
+
 ### To cluster students
 
-1. Create a CSV file in the format specified in the code.
+1. Create a tab-separated values (TSV) file in the format specified in the code.
 
 Then run:
 
     $ python3 -m student_km_clustering < ~/student_roster.csv
 
-If it succeeds, you'll get an output of your input file plus the cluster number for each student.
+If it succeeds, you'll get an output of your input file plus the cluster number for each student,
+also in tab-separated values (TSV) format.
 
 ### To assign instructors to groups
 

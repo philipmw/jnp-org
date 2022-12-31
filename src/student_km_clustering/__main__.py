@@ -1,3 +1,4 @@
+import logging
 import sys
 
 from student_km_clustering.cluster import assign_clusters
@@ -16,4 +17,5 @@ def main(fh_in, fh_out):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
     main(sys.stdin, sys.stdout)
