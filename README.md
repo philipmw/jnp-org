@@ -76,11 +76,11 @@ Unit tests should run and pass.
 
 ### To cluster students
 
-1. Create a tab-separated values (TSV) file in the format specified in the code.
+1. Create a tab-separated values (TSV) file in the format of `./test_data/students-happy.tsv`
 
 Then run:
 
-    $ python3 -m student_km_clustering < ~/student_roster.csv
+    $ python3 -m student_km_clustering < ~/student_roster.tsv
 
 If it succeeds, you'll get an output of your input file plus the cluster number for each student,
 also in tab-separated values (TSV) format.
@@ -88,10 +88,13 @@ also in tab-separated values (TSV) format.
 ### To assign instructors to groups
 
 1. Survey the instructors for their preferences.
-2. Update `instructor_assign/__main__.py` with the real preferences.
+2. Create a tab-separated values (TSV) file in the format of `./test_data/happy.tsv` with preferences.
+3. Update `groups` in `__main__.py` with the quantity of each category of groups we need.
+    The quantity of groups must match the quantity of instructors and their preferences.
 
 Then run:
 
-      $ python3 -m instructor_assign
+      $ python3 -m instructor_assign < ~/instructor_prefs.tsv
 
-If it succeeds, you'll get a dictionary mapping every instructor to their assigned group.
+If it succeeds, you'll get an output of instructors with their group assignments,
+also in tab-separated values (TSV) format.

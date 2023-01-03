@@ -6,9 +6,9 @@ class TestAssign(unittest.TestCase):
     def test_balanced(self):
         groups = {'g1': 1, 'g2': 1, 'g3': 1}
         all_instr_prefs = {
-            'i1': {'g1': 0, 'g2': 0, 'g3': 1},
-            'i2': {'g1': 0, 'g2': 1, 'g3': 0},
-            'i3': {'g1': 1, 'g2': 0, 'g3': 0},
+            'i1': {'g1': -1, 'g2': -1, 'g3': 2},
+            'i2': {'g1': -1, 'g2': 2, 'g3': -1},
+            'i3': {'g1': 2, 'g2': -1, 'g3': -1},
         }
         expected_assignments = {
             'i1': 'g3',
@@ -21,10 +21,10 @@ class TestAssign(unittest.TestCase):
     def test_balanced_big_groups(self):
         groups = {'g1': 3, 'g2': 1}
         all_instr_prefs = {
-            'i1': {'g1': 0, 'g2': 1},
-            'i2': {'g1': 0, 'g2': 1},
-            'i3': {'g1': 1, 'g2': 0},
-            'i4': {'g1': 1, 'g2': 0},
+            'i1': {'g1': -1, 'g2': 1},
+            'i2': {'g1': -1, 'g2': 1},
+            'i3': {'g1': 1, 'g2': -1},
+            'i4': {'g1': 1, 'g2': -1},
         }
         expected_assignments = {
             'i1': 'g2',
@@ -38,8 +38,8 @@ class TestAssign(unittest.TestCase):
     def test_not_enough_instructors(self):
         groups = {'g1': 1, 'g2': 2}
         all_instr_prefs = {
-            'i1': {'g1': 0, 'g2': 1},
-            'i2': {'g1': 1, 'g2': 0},
+            'i1': {'g1': -1, 'g2': 1},
+            'i2': {'g1': 1, 'g2': -1},
         }
 
         with self.assertRaisesRegex(Exception, 'Not enough instructors for the groups'):
@@ -48,10 +48,20 @@ class TestAssign(unittest.TestCase):
     def test_too_many_instructors(self):
         groups = {'g1': 1, 'g2': 1}
         all_instr_prefs = {
-            'i1': {'g1': 0, 'g2': 1},
-            'i2': {'g1': 1, 'g2': 0},
+            'i1': {'g1': -1, 'g2': 1},
+            'i2': {'g1': 1, 'g2': -1},
             'i3': {'g1': 0, 'g2': 0},
         }
 
         with self.assertRaisesRegex(Exception, 'Too many instructors for the groups'):
+            assign_instructors_to_groups(groups, all_instr_prefs)
+
+    def test_bad_weights(self):
+        groups = {'g1': 1, 'g2': 1}
+        all_instr_prefs = {
+            'i1': {'g1': -1, 'g2': 1},
+            'i2': {'g1': 1, 'g2': 1},
+        }
+
+        with self.assertRaisesRegex(Exception, 'Prefs matrix of i2 has weights that add to 2, but expected 0'):
             assign_instructors_to_groups(groups, all_instr_prefs)
